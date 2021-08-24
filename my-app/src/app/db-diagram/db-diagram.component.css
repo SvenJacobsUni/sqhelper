@@ -1,0 +1,7 @@
+#parentDiv * {
+  pointer-events: none
+}
+.scrollable {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,93 @@
+<!-- Card mit vidueller Datenbankdarstellung-->
+<mdb-card cascade="true" wider="true">
+  <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+    <mat-tab-group>
+      <mat-tab label="visuelles Schema">
+        <!-- Schema als Diagramm -->
+        <app-db-diagram
+          (TableName)="updateTableName($event)"
+          (enableBlockly)="enableBlockly($event)"
+          *ngIf="enablederd"
+        ></app-db-diagram>
+        <!-- ngif als Trick um die Kompenente neu laden zu können -->
+      </mat-tab>
+      <mat-tab label="textuelles Schema">
+        <!-- Schema als Text -->
+        <app-db-text (TableName)="updateTableName($event)"></app-db-text>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</mdb-card>
+
+<!-- Card mit Resulttabelle -->
+<mdb-card cascade="true" wider="true">
+  <div id="tablecontainer" [ngbCollapse]="isCollapsed">
+    <button
+      type="button"
+      id="round"
+      class="btn btn-default btn-circle"
+      (click)="isCollapsed = true"
+      mdbBtn
+      color="light"
+      mdbWavesEffect
+    >
+      <i class="fa fa-download"></i>
+    </button>
+
+    <h3 id="tabellenname">
+      <strong>{{ Titel }}</strong>
+    </h3>
+    <!-- Tabelle in eigener Component -->
+    <div class="tableresult">
+      <app-table
+        *ngIf="dataMessageResults"
+        [tableData]="getHeaders().data"
+        [tableColumns]="getHeaders().col"
+      ></app-table>
+    </div>
+  </div>
+</mdb-card>
+
+<!-- Card mit Blockly -->
+<mdb-card cascade="true" wider="true">
+  <!-- Blockly Component -->
+  <app-blockly (BlocklyCode)="updateBlocklycode($event)" *ngIf="blocklyenabled"></app-blockly>
+
+  <!-- Der formatierte Code-->
+
+  <br />
+  <div class="md-form md-outline form-lg">
+    <div class="input-group mb-3">
+      <textarea
+        autosize
+        readonly
+        class="md-textarea md-textarea-auto form-control"
+        [value]="formattedSQL != null ? formattedSQL : 'SQL-Code'"
+        >
+    </textarea
+      >
+
+      <!-- Buttons für Abgeben/Ausführen/Kommentar anzeigen -->
+      <div class="input-group-append">
+        <button
+          ngbTooltip="SQL Eingabe ausführen"
+          id="AbgabeButton"
+          type="button"
+          (click)="runSql()"
+          mdbBtn
+          color="primary"
+          mdbWavesEffect
+        >
+          <i class="fas fa-play"></i>
+        </button>
+      </div>
+    </div>
+    <div class="sqlerror" *ngIf="sql_error">
+      <strong>Fehlercode: </strong> {{ sql_error.Nummer }}
+      <br />
+      <strong>Fehlernachricht: </strong> {{ sql_error.Nachricht }}
+    </div>
+  </div>
+</mdb-card>
+
+

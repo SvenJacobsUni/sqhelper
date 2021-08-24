@@ -1,0 +1,14 @@
+::ng-deep .tooltip-inner {
+  background-color:  #4286f4f3;
+  color: #fff;
+}
+.content-has-text-centered
+{
+  margin-top: 1em;
+  text-align: center;
+}
+.text-right
+{
+  position:absolute;
+  text-align: right;
+}

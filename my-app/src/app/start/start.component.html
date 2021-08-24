@@ -1,0 +1,32 @@
+<button
+  button
+  mdbBtn
+  color="primary"
+  class="btn btn-primary btn-circle btn-xl"
+  placement="right"
+  ngbTooltip="Zurück zur Startseite"
+  (click)="tohome()"
+>
+  <i class="fas fa-home"></i>
+</button>
+
+<div *ngIf="!no_db_detected" class="container">
+  <app-student-site></app-student-site>
+</div>
+
+<mat-card *ngIf="no_db_detected" style="width: 50vw; margin: auto;">
+  <mat-card-header>
+    <mat-card-title>Keine Datenbank vorhanden</mat-card-title>
+  </mat-card-header>
+  <p>
+    Alle Daten werden alle 24-Stunden gelöscht. Bitte laden Sie die Datenbank
+    erneut hoch.
+  </p>
+
+  <br /><br />
+
+  <mat-card-content> </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="tohome()">Zurück zur Startseite</button>
+  </mat-card-actions>
+</mat-card>

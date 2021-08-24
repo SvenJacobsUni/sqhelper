@@ -1,0 +1,15 @@
+<div id="inline" *ngFor="let table of alltables">
+  <button
+    type="button"
+    id="kleinerButton"
+    (click)="openTable(table.table)"
+    class="btn btn-info"
+  >
+    <i class="fas fa-external-link-alt"></i>
+  </button>
+  <div class="two">
+    <strong>{{ table.table }}</strong
+    >&nbsp;(
+  </div>
+  <div class="one" *ngFor="let attr of table.attri" [innerHTML]="attr">,</div>
+</div>

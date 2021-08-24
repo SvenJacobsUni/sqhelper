@@ -1,0 +1,58 @@
+version: '3.1' 
+
+services: 
+
+#NODE.js
+  sqhelper_nodeserver: 
+    build: 
+      context: .
+      dockerfile: ./Docker/nodejs
+    ports: 
+      - 3000:3000
+    networks:
+      - sqhelper_net
+    restart: always
+
+#ANGULAR
+  sqhelper_angular:
+    build: 
+      context: .
+      dockerfile: ./Docker/angular
+    environment:
+      API_URL: http://localhost:3000 # Change to your IP-Adress / IP-Adress of Webserver where Docker is running
+    ports: 
+      - 80:80
+    networks:
+      - sqhelper_net
+    restart: always
+
+#MYSQL
+  sqhelper_mysql:
+    build: 
+      context: .
+      dockerfile: ./Docker/mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: Sqhelper
+      MYSQL_ROOT_PASSWORD: SecretPasswordPleaseChange # also change in SocketServer/DBConfig
+    networks:
+      - sqhelper_net
+    restart: always
+
+#PHPMYADMIN
+  sqhelper_phpmyadmin:
+    depends_on:
+      - sqhelper_mysql
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+     - '8080:80'
+    environment:
+      PMA_HOST: sqhelper_mysql
+    networks:
+    - sqhelper_net
+
+networks:
+  sqhelper_net:
+    driver: bridge

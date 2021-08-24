@@ -1,0 +1,9 @@
+{
+   "host": "sqhelper_mysql",
+   "port": "3306",
+   "user": "root",
+   "MYSQL_ROOT_PASSWORD": "SecretPasswordPleaseChange",
+   "secret": "hashSecretPleaseChange",
+   "secret2": "userpwSecretPleaseChange",
+   "saveAllQueries": false
+}

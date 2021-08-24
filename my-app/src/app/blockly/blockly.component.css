@@ -1,0 +1,19 @@
+ngx-blockly {
+
+  width: 30%;
+  height: 30%;
+}
+
+#blocklyContainer {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+}
+
+#blocklyDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
