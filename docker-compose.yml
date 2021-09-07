@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: ./Docker/angular
     environment:
-      API_URL: http://localhost:3000 # Change to your IP-Adress / IP-Adress of Webserver where Docker is running
+      API_URL: http://localhost:3000 # Change to your IP-Adress / IP-Adress of Webserver where Docker is running / if you use a https proxy or another option for SSL use: wss://yourIP 
     ports: 
       - 80:80
     networks:

@@ -139,7 +139,8 @@ export class BlocklyComponent implements OnInit {
       maxScale: 2,
       minScale: 0.3,
       scaleSpeed: 1.0
-  }
+  },
+  media: "../assets/"
   };
 
   public generatorConfig: NgxBlocklyGeneratorConfig = {
