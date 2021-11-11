@@ -12,8 +12,10 @@ io.on("connection", function (socket) {
          if (err) {
             console.log("Token konnte nich authentifiziert werden");
             socket.temp_user_id = makeid(10);
+            socket.save_user_id = socket.temp_user_id
          } else {
             socket.temp_user_id = decoded.temp_user_id;
+            socket.save_user_id = decoded.temp_user_id;
             console.log(decoded.temp_user_id);
          }
       }
@@ -31,6 +33,16 @@ io.on("connection", function (socket) {
       connectCounter--;
       console.log("--user - count: " + connectCounter);
    });
+   socket.on("setToFJM", function () {
+      socket.temp_user_id = "x7q887EP6C"
+      socket.emit("setToFJM_success", "");
+   });
+   socket.on("setToOLD", function () {
+      socket.temp_user_id = socket.save_user_id;
+      socket.emit("setToFJM_success", "");
+   }
+   );
+
    connectCounter++;
    console.log("++user - count: " + connectCounter);
    // Hier werden die anderen Module importiert

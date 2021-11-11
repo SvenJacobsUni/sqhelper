@@ -12,6 +12,8 @@ export class SelectBlock extends CustomBlock {
     this.block.setPreviousStatement(true, 'select_innerselect');
     this.block.setNextStatement(true, 'select_from');
     this.block.setColour(180);
+    this.block.setHelpUrl('https://www.w3schools.com/sql/sql_select.asp');
+    this.block.setTooltip('Returns number of letters in the provided text.');
     this.block.jsonInit({
       mutator: 'select_mutator',
     });

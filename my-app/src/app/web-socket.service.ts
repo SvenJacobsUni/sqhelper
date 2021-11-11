@@ -8,9 +8,9 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class WebSocketService {
   socket: any;
-  uri = environment.apiUrl;// enviroment wird während docker-compose gebildet
+  //uri = environment.apiUrl;// enviroment wird während docker-compose gebildet
    //uri = 'http://localhost:3000'
-  //uri = 'wss://sqhelper.com:8090'; // 8090 = sqhelper leitet auf lokalen Port 5000 || 8080 Sqlesson leitet auf lokalen Port 3000
+  uri = 'wss://sqhelper.com:8090'; // 8090 = sqhelper leitet auf lokalen Port 5000 || 8080 Sqlesson leitet auf lokalen Port 3000
   constructor() {
     this.socket = io(this.uri, {
       reconnection: true,

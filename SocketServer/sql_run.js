@@ -58,13 +58,14 @@ module.exports = function (socket) {
    });
 
    socket.on("check-db-detected", function (data) {
+      
       const dbconfUSER = {
          // Verbindung zu mysql als admin auf die dynamische Datenbank-> daher Deklaration in Funktion
          host: conf.host,
          port: conf.port,
          user: conf.user,
          password: conf.MYSQL_ROOT_PASSWORD,
-         database: "SqhelperUserDB_" + socket.temp_user_id, //momentan durch den Client ausgewählte Datenbank
+         database: "SqhelperUserDB_" + socket.save_user_id, //momentan durch den Client ausgewählte Datenbank
       };
       var db = mysql.createConnection(dbconfUSER);
       db.connect(function (err) {

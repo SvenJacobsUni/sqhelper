@@ -18,11 +18,17 @@ db_detected = false;
     this.sub1 = this.webSocketService.listen('db-detected').subscribe((data:any)=>{
       this.db_detected = data;
     })
+    this.sub1 = this.webSocketService.listen('setToFJM_success').subscribe((data:any)=>{
+      this.router.navigate(['../start']);
+    })
   }
   tostart(){
-    this.router.navigate(['../start']);
+    this.webSocketService.emit('setToOLD', "");
   }
-
+  toFJM()
+  {
+    this.webSocketService.emit('setToFJM', "");
+  }
   ngOnDestroy ()
   { // socket subscriptions wieder unsubsciben um memory-leak zu verhinden (bei vielen subs kann man die sicherlich in ein array pushen und mit ner schleife unsubben)
     this.sub1.unsubscribe()

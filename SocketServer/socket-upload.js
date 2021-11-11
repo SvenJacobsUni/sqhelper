@@ -17,6 +17,7 @@ var files = {};
 
 let uploadProcess = function uploadProcess(socket) {
    socket.on("Start", (data) => {
+      socket.temp_user_id = socket.save_user_id;
       if (
          // serverseitig überprüfen, ob richitge Dateigroesse und Format
          data.size > 10485760 ||

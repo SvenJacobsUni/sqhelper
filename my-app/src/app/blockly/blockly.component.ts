@@ -95,10 +95,10 @@ export class BlocklyComponent implements OnInit {
                       '<label text="Join"></label>' +
                       '<block type="JoinBlock"></block>' +
                     '</category>' +
-                    '<category name="Operanden und Funktionen" colour="60">' +
+                    '<category name="Operatoren und Funktionen" colour="60">' +
                       '<label text="Funktionen"></label>' +
                       '<block type="FunctionBlock"></block>' +
-                      '<label text="Operanden"></label>' +
+                      '<label text="Operatoren"></label>' +
                       '<block type="OperandBlock"></block>' +
                       '<block type="AndBlock"><mutation items="1"></mutation></block>' +
                       '<block type="OrBlock"><mutation items="1"></mutation></block>' +
