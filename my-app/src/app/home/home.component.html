@@ -4,6 +4,32 @@
   <app-file-upload></app-file-upload>
 </div>
 
+<mat-card style="width: 30vw; margin: auto; margin-top:1em;">
+  <mat-card-header>
+    <mat-card-title>FJM</mat-card-title>
+  </mat-card-header>
+  <button style="margin: 0.5em;" mat-raised-button (click)="toFJM('Buecher')">
+    Zur Bücher Datenbank</button
+  >
+  <button style="margin: 0.5em;" mat-raised-button (click)="toFJM('Mitarbeiter')">
+    Zur Mitarbeiter Datenbank</button
+  >
+  <button style="margin: 0.5em;" mat-raised-button (click)="toFJM('Arztpraxis')">
+    Zur Arztpraxis Datenbank</button
+  >
+
+  <button style="margin: 0.5em;" mat-raised-button (click)="toFJM('Fussball')">
+    Zur Fußball Datenbank</button
+  >
+
+  <mat-card-content> </mat-card-content>
+  <mat-card-actions
+    ><p>Hier üben wir SQL Datenbankabfragen</p>
+    <p>Anleitung zur Bedienung (für die, die gefehlt haben): <a href="https://www.youtube.com/watch?v=HnQTd5yW6DI" target="_blank">YouTube</a></p>
+  </mat-card-actions>
+</mat-card>
+
+
 <mat-card *ngIf="db_detected" style="width: 30vw; margin: auto">
   <mat-card-header>
     <mat-card-title>Weiterarbeiten</mat-card-title>
@@ -18,35 +44,10 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card style="width: 30vw; margin: auto; margin-top:1em;">
-  <mat-card-header>
-    <mat-card-title>FJM</mat-card-title>
-  </mat-card-header>
-  <button mat-raised-button (click)="toFJM()">
-    Zur Arztpraxis Datenbank</button
-  ><br />
-
-  <mat-card-content> </mat-card-content>
-  <mat-card-actions
-    ><p>Hier üben wir SQL Datenbankabfragen</p>
-  </mat-card-actions>
-</mat-card>
 
 <a type="button" class="btn btn-primary btn-lg" href="https://github.com/SvenJacobsUni/sqhelper" target="_blank">
   <i class="fab fa-github"></i> Open Source <i class="fab fa-docker"></i>
 </a>
 
-
-  <div class="video-container-wrapper">
-    <div class="video-container">
-      <iframe
-        src="https://www.youtube.com/embed/ElpS0_KeAqM"
-        width="300"
-        height="150"
-        frameborder="0"
-        allowfullscreen="allowfullscreen"
-      ></iframe>
-    </div>
-  </div>
 
 

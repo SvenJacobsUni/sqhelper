@@ -25,9 +25,9 @@ db_detected = false;
   tostart(){
     this.webSocketService.emit('setToOLD', "");
   }
-  toFJM()
+  toFJM(dbname)
   {
-    this.webSocketService.emit('setToFJM', "");
+    this.webSocketService.emit('setToFJM', dbname);
   }
   ngOnDestroy ()
   { // socket subscriptions wieder unsubsciben um memory-leak zu verhinden (bei vielen subs kann man die sicherlich in ein array pushen und mit ner schleife unsubben)

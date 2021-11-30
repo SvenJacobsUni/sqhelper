@@ -33,9 +33,27 @@ io.on("connection", function (socket) {
       connectCounter--;
       console.log("--user - count: " + connectCounter);
    });
-   socket.on("setToFJM", function () {
-      socket.temp_user_id = "x7q887EP6C"
+   socket.on("setToFJM", function (data) {
+      if(data=='Arztpraxis')
+      {
+      socket.temp_user_id = "x7q887EP6C";
       socket.emit("setToFJM_success", "");
+      }
+      if(data=='Mitarbeiter')
+      {
+      socket.temp_user_id = "2OaYbr5LQJ";
+      socket.emit("setToFJM_success", "");
+      }
+      if(data=='Buecher')
+      {
+      socket.temp_user_id = "0XSwU00Yx9";
+      socket.emit("setToFJM_success", "");
+      }
+      if(data=='Fussball')
+      {
+      socket.temp_user_id = "3LvE1Q0Z1b";
+      socket.emit("setToFJM_success", "");
+      }
    });
    socket.on("setToOLD", function () {
       socket.temp_user_id = socket.save_user_id;
