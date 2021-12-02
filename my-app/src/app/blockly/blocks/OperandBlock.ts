@@ -16,11 +16,11 @@ export class OperandBlock extends CustomBlock {
       .appendField(
         new Blockly.FieldDropdown([
           ['=', '='],
-          ['≠', '≠'],
+          ['<>', '<>'],
           ['>', '>'],
-          ['≥', '>='],
+          ['>=', '>='],
           ['<', '<'],
-          ['≤', '<='],
+          ['<=', '<='],
           ['LIKE', 'LIKE'],
           ['+', '+'],
           ['-', '-'],
