@@ -10,7 +10,7 @@
      A block-based syntax support for SQL
      <br />
     <br />
-    <a href="https://sqhelper.com">View Demo</a>
+    <a href="https://sqhelper.de">View Demo</a>
     ·
     <a href="https://github.com/SvenJacobsUni/sqhelper/issues">Report Bug</a>
     ·
