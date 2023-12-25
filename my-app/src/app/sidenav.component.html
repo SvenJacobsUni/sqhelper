@@ -1,0 +1,82 @@
+<!--Toolbar -> upper horizontal bar -->
+<mat-toolbar>
+  <button mat-icon-button (click)="sidenav.toggle()">
+     <mat-icon *ngIf="!sidenav.opened">more_horiz</mat-icon>
+     <mat-icon *ngIf="sidenav.opened">more_vert</mat-icon>
+   </button>
+    Tutor Kai
+ </mat-toolbar>
+
+ <!--Sidenav -> left bar -->
+ <mat-sidenav-container class="example-container">
+     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+         Menu
+         <mat-divider></mat-divider>
+         <!--
+         <button mat-button class="menu-button" routerLink="/dashboard">
+             <mat-icon>home</mat-icon>
+             <span>Dashboard</span>
+           </button>
+           -->
+           <button mat-button class="menu-button" routerLink="/code" routerLinkActive="menu-button-active">
+             <mat-icon>code</mat-icon>
+             <span class = "font-extrabold">Code (OFP)</span>
+           </button>
+
+           <mat-divider></mat-divider>
+
+           <button mat-button class="menu-button">
+            <mat-icon>accessibility</mat-icon>
+            <span>More</span>
+          </button>
+          <button mat-button class="menu-button">
+            <mat-icon>favorite</mat-icon>
+            <span>is</span>
+          </button>
+          <button mat-button class="menu-button">
+            <mat-icon>dns</mat-icon>
+            <span>coming...</span>
+          </button>
+
+           <mat-divider></mat-divider>
+
+           <button mat-button class="menu-button" routerLink="/about" routerLinkActive="menu-button-active">
+             <mat-icon>help</mat-icon>
+             <span>About</span>
+           </button>
+
+           <mat-divider></mat-divider>
+
+           <button mat-button class="menu-button" routerLink="/login" routerLinkActive="menu-button-active">
+            <mat-icon>login</mat-icon>
+            <span>login</span>
+          </button>
+          <button mat-button class="menu-button" routerLink="/logout" routerLinkActive="menu-button-active">
+            <mat-icon>logout</mat-icon>
+            <span>logout</span>
+          </button>
+     </mat-sidenav>
+
+     <!--Content Area-->
+     <mat-sidenav-content>
+
+         <div class="content mat-elevation-z8">
+
+          <router-outlet></router-outlet>
+
+         </div>
+
+     </mat-sidenav-content>
+ </mat-sidenav-container>
+
+<!--Toolbar-> footer/bottom bar -->
+ <mat-toolbar class="footer">
+  <span class="footer-content">
+    <button mat-button (click)="openImpressum()">Impressum</button>
+    <mat-divider vertical="true" class="divider"></mat-divider>
+    <button mat-button (click)="openDatenschutz()">Datenschutz</button>
+    <mat-divider vertical="true" class="divider"></mat-divider> <!-- Additional divider -->
+    <a mat-button href="mailto:sven.jacobs@uni-siegen.de">Feedback</a> <!-- Additional button for feedback -->
+  </span>
+</mat-toolbar>
+
