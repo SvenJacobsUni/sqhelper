@@ -1,7 +1,7 @@
 
 <p align="center">
   <a href="https://sqhelper.com">
-    <img src="my-app/src/assets/logotransparent.png" alt="Logo" width="291" height="92">
+    <img src="public\assets\logotransparent.png" alt="Logo" width="291" height="92">
   </a>
 
   <p align="center">
@@ -22,17 +22,8 @@
 
 SQHelper provides a visual, block-based interface to help learners understand, use and learn SQL syntax. To learn more about the theoretical background, you can read my [published paper](https://ieeexplore.ieee.org/document/9453897). This project originated from my bachelor's thesis at the University of Siegen, focusing on Computer Science Education.
 
-**Note:** This is the updated **client-side-only version (01.2026)**, which runs completely in the browser.
-(The original version is still available in the `original-bachelor-thesis` branch).
-
-### Built With
-
-* [Blockly](https://developers.google.com/blockly)
-* [sql.js](https://github.com/sql-js/sql.js)
-* [ngx-vflow](https://www.ngx-vflow.org)
-* [vizdom](https://github.com/vizdom-dev/vizdom)
-* [Angular](https://angular.io/)
-* [Docker](https://www.docker.com/)
+**Note:** This is the updated **client-side-only version (01.2026)**, which runs completely in the browser and only supports SQLite. <br>
+(The original version for MySQL is still available in the `original-bachelor-thesis` branch).
 
 ## Getting Started
 
@@ -63,7 +54,23 @@ The app should now be accessible at `http://localhost:80`.
    `npm install` and
    `npm start`
 
+## Built With
 
+**Core**
+* [Angular](https://angular.dev/) - Web framework
+* [Blockly](https://developers.google.com/blockly) - Visual SQL query builder (23 new SQL blocks)
+
+**Database**
+* [sql.js](https://github.com/sql-js/sql.js) - In-browser SQLite database
+* [sql-formatter](https://github.com/sql-formatter-org/sql-formatter) - SQL syntax highlighting
+
+**Visualization**
+* [ngx-vflow](https://www.ngx-vflow.org) - Interactive schema diagram
+* [vizdom](https://github.com/vizdom-dev/vizdom) - Automatic graph layout
+
+**UI Components**
+* [Angular Material](https://material.angular.dev/) - Material Design components
+* [angular-split](https://github.com/angular-split/angular-split) - Resizable panels
 
 ## Contributing
 
