@@ -1,0 +1,364 @@
+// Main editor layout
+.editor-layout {
+  height: calc(100vh - 40px); // Minus footer
+  width: 100%;
+}
+
+// Panel base styles
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--nord5);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  gap: 12px;
+
+  .spacer {
+    flex: 1;
+  }
+
+  .home-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    transition: color var(--transition-fast);
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      color: var(--nord8);
+    }
+  }
+
+  .row-count {
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--nord3);
+    text-transform: none;
+  }
+
+  .enable-btn {
+    font-size: 11px;
+    text-transform: none;
+    letter-spacing: normal;
+
+    mat-icon {
+      font-size: 16px;
+      height: 16px;
+      width: 16px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.panel-content {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+// Schema panel
+.schema-panel {
+  .panel-content {
+    padding: 0;
+    // Ensure content takes full height
+    display: flex;
+    flex-direction: column;
+
+    app-db-diagram,
+    app-db-text {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .view-toggle {
+    // Customizing the toggle group to look cleaner in the header
+    height: 28px;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-body);
+
+    ::ng-deep .mat-button-toggle-appearance-standard {
+      background-color: transparent;
+      color: var(--text-secondary);
+
+      &.mat-button-toggle-checked {
+        background-color: var(--color-primary);
+        color: white;
+
+        .mat-button-toggle-label-content {
+          color: white;
+        }
+      }
+
+      .mat-button-toggle-label-content {
+        line-height: 28px;
+        padding: 0 12px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        mat-icon {
+          font-size: 16px;
+          height: 16px;
+          width: 16px;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// Editor panel (Blockly + SQL)
+.editor-panel {
+  .panel-content {
+    padding: 0;
+    gap: 0; // Handled by split
+  }
+}
+
+.inner-split {
+  height: 100%;
+  width: 100%;
+}
+
+.blockly-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  padding: 12px 12px 0 12px;
+
+  ::ng-deep {
+
+    app-blockly,
+    .blocklyDiv {
+      height: 100% !important;
+      width: 100% !important;
+      display: block;
+    }
+  }
+
+  .blockly-inner-container {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.blockly-wrapper {
+  margin: 12px 12px 0 12px;
+  height: calc(100% - 12px);
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  ::ng-deep {
+
+    app-blockly,
+    .blocklyDiv {
+      height: 100% !important;
+      width: 100% !important;
+      display: block;
+    }
+  }
+}
+
+.sql-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 8px 12px 12px 12px; // Top padding 8px, others 12px to match
+}
+
+.sql-field {
+  width: 100%;
+  height: 100%;
+
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none; // Hide unused hint/error space if not needed to save space
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-flex {
+    height: 100%;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  textarea {
+    flex: 1;
+    min-height: 60px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: none;
+    height: 100% !important;
+  }
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 32px;
+  gap: 16px;
+  text-align: center;
+  color: var(--color-error);
+
+  .error-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: rgba(191, 97, 106, 0.1);
+
+    mat-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .error-info {
+    max-width: 400px;
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-error);
+    }
+
+    .error-code {
+      display: inline-block;
+      padding: 2px 8px;
+      background-color: var(--bg-body);
+      border: 1px solid rgba(191, 97, 106, 0.2);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .error-message {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+  }
+}
+
+// Results panel
+.results-panel {
+  .panel-content {
+    padding: 0;
+  }
+}
+
+.empty-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  gap: 8px;
+  padding: 24px;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.5;
+  }
+
+  p {
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+  }
+}
+
+// Angular Split Gutter Styling
+::ng-deep {
+  .as-split-gutter {
+    background-color: var(--border-color) !important;
+
+    .as-split-gutter-icon {
+      display: none;
+    }
+  }
+
+  .as-split-gutter-vertical {
+    height: 4px !important;
+    cursor: row-resize;
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background-color: var(--color-primary) !important;
+    }
+  }
+
+  .as-split-gutter-horizontal {
+    width: 4px !important;
+    cursor: col-resize;
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background-color: var(--color-primary) !important;
+    }
+  }
+}

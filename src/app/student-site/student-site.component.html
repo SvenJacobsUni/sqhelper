@@ -1,0 +1,205 @@
+@if (isDesktop) {
+<!-- Desktop: Schema oben, darunter SQL Builder | Ergebnisse -->
+<as-split direction="vertical" class="editor-layout" (dragEnd)="onSplitDragEnd()">
+  <!-- Oben: Schema -->
+  <as-split-area [size]="40" [minSize]="20">
+    <div class="panel schema-panel">
+      <div class="panel-header">
+        <a class="home-link" routerLink="/home">
+          <mat-icon>home</mat-icon>
+          Startseite
+        </a>
+        <span class="spacer"></span>
+        <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="Ansicht wählen" class="view-toggle">
+          <mat-button-toggle value="visual" matTooltip="Visuelle Ansicht">
+            <mat-icon>schema</mat-icon>
+            Visuell
+          </mat-button-toggle>
+          <mat-button-toggle value="text" matTooltip="Textuelle Ansicht">
+            <mat-icon>code</mat-icon>
+            Text
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="panel-content">
+        @if (viewMode === 'visual') {
+        <app-db-diagram (TableName)="updateTableName($event)" (enableBlockly)="enableBlockly()">
+        </app-db-diagram>
+        } @else {
+        <app-db-text (TableName)="updateTableName($event)"></app-db-text>
+        }
+      </div>
+    </div>
+  </as-split-area>
+
+  <!-- Unten: SQL Builder | Ergebnisse nebeneinander -->
+  <as-split-area [size]="60" [minSize]="30">
+    <as-split direction="horizontal" (dragEnd)="onSplitDragEnd()">
+      <as-split-area [size]="50" [minSize]="25">
+        <div class="panel editor-panel">
+          <div class="panel-header">
+            <span>SQL Builder</span>
+            @if (!blocklyEnabled) {
+            <button mat-button color="primary" (click)="enableBlockly()" class="enable-btn">
+              <mat-icon>widgets</mat-icon>
+              Blockly aktivieren
+            </button>
+            }
+          </div>
+          <div class="panel-content">
+            <as-split direction="vertical" (dragEnd)="onSplitDragEnd()" class="inner-split">
+              @if (blocklyEnabled) {
+              <as-split-area [size]="60">
+                <div class="blockly-wrapper">
+                  <app-blockly (blocklyCode)="updateBlocklyCode($event)"></app-blockly>
+                </div>
+              </as-split-area>
+              }
+
+              <as-split-area [size]="blocklyEnabled ? 40 : 100">
+                <div class="sql-section">
+                  <mat-form-field appearance="outline" class="sql-field">
+                    <mat-label>Generierter SQL Code</mat-label>
+                    <textarea matInput readonly class="sql-textarea" [value]="formattedSQL || 'SELECT * FROM ...'">
+                    </textarea>
+                    <button mat-icon-button matSuffix color="primary" matTooltip="SQL Ausführen" (click)="runSql()">
+                      <mat-icon>play_circle</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </as-split-area>
+            </as-split>
+          </div>
+        </div>
+      </as-split-area>
+
+      <as-split-area [size]="50" [minSize]="25">
+        <div class="panel results-panel">
+          <div class="panel-header">
+            <span>{{ Titel }}</span>
+            <span class="row-count">{{ dataMessageResults.length }} Zeilen</span>
+          </div>
+          <div class="panel-content">
+            @if (sqlError) {
+            <div class="error-state">
+              <div class="error-icon-wrapper">
+                <mat-icon>error_outline</mat-icon>
+              </div>
+              <div class="error-info">
+                <h3>Fehler bei der Ausführung</h3>
+                <div class="error-code">Code: {{ sqlError.Nummer }}</div>
+                <p class="error-message">{{ sqlError.Nachricht }}</p>
+              </div>
+            </div>
+            } @else if (dataMessageResults.length > 0) {
+            <app-table [tableData]="getHeaders().data" [tableCols]="getHeaders().col">
+            </app-table>
+            } @else {
+            <div class="empty-results">
+              <mat-icon>table_chart</mat-icon>
+              <p>Führe eine SQL-Abfrage aus, um Ergebnisse zu sehen</p>
+            </div>
+            }
+          </div>
+        </div>
+      </as-split-area>
+    </as-split>
+  </as-split-area>
+</as-split>
+} @else {
+<!-- Mobile: Einspaltig vertikal -->
+<as-split direction="vertical" class="editor-layout" (dragEnd)="onSplitDragEnd()">
+  <as-split-area [size]="40" [minSize]="15">
+    <div class="panel schema-panel">
+      <div class="panel-header">
+        <a class="home-link" routerLink="/home">
+          <mat-icon>home</mat-icon>
+          Startseite
+        </a>
+        <span class="spacer"></span>
+        <mat-button-toggle-group [(ngModel)]="viewMode" aria-label="Ansicht wählen" size="small" class="view-toggle">
+          <mat-button-toggle value="visual">Visuell</mat-button-toggle>
+          <mat-button-toggle value="text">Text</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="panel-content">
+        @if (viewMode === 'visual') {
+        <app-db-diagram (TableName)="updateTableName($event)" (enableBlockly)="enableBlockly()">
+        </app-db-diagram>
+        } @else {
+        <app-db-text (TableName)="updateTableName($event)"></app-db-text>
+        }
+      </div>
+    </div>
+  </as-split-area>
+
+  <as-split-area [size]="35" [minSize]="15">
+    <div class="panel editor-panel">
+      <div class="panel-header">
+        <span>SQL Builder</span>
+        @if (!blocklyEnabled) {
+        <button mat-button color="primary" (click)="enableBlockly()" class="enable-btn">
+          <mat-icon>widgets</mat-icon>
+          Blockly aktivieren
+        </button>
+        }
+      </div>
+      <div class="panel-content">
+        <as-split direction="vertical" (dragEnd)="onSplitDragEnd()" class="inner-split">
+          @if (blocklyEnabled) {
+          <as-split-area [size]="60">
+            <div class="blockly-wrapper">
+              <app-blockly (blocklyCode)="updateBlocklyCode($event)"></app-blockly>
+            </div>
+          </as-split-area>
+          }
+
+          <as-split-area [size]="blocklyEnabled ? 40 : 100">
+            <div class="sql-section">
+              <mat-form-field appearance="outline" class="sql-field">
+                <mat-label>Generierter SQL Code</mat-label>
+                <textarea matInput readonly class="sql-textarea" [value]="formattedSQL || 'SELECT * FROM ...'">
+                    </textarea>
+                <button mat-icon-button matSuffix color="primary" matTooltip="SQL Ausführen" (click)="runSql()">
+                  <mat-icon>play_circle</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </as-split-area>
+        </as-split>
+      </div>
+    </div>
+  </as-split-area>
+
+  <as-split-area [size]="25" [minSize]="10">
+    <div class="panel results-panel">
+      <div class="panel-header">
+        <span>{{ Titel }}</span>
+        <span class="row-count">{{ dataMessageResults.length }} Zeilen</span>
+      </div>
+      <div class="panel-content">
+        @if (sqlError) {
+        <div class="error-state">
+          <div class="error-icon-wrapper">
+            <mat-icon>error_outline</mat-icon>
+          </div>
+          <div class="error-info">
+            <h3>Fehler bei der Ausführung</h3>
+            <div class="error-code">Code: {{ sqlError.Nummer }}</div>
+            <p class="error-message">{{ sqlError.Nachricht }}</p>
+          </div>
+        </div>
+        } @else if (dataMessageResults.length > 0) {
+        <app-table [tableData]="getHeaders().data" [tableCols]="getHeaders().col">
+        </app-table>
+        } @else {
+        <div class="empty-results">
+          <mat-icon>table_chart</mat-icon>
+          <p>Führe eine SQL-Abfrage aus, um Ergebnisse zu sehen</p>
+        </div>
+        }
+      </div>
+    </div>
+  </as-split-area>
+</as-split>
+}

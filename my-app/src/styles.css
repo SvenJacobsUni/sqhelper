@@ -1,5 +1,0 @@
-/* You can add global styles to this file, and also import other style files */
-/* @import '~material-design-icons/iconfont/material-icons.css'; */
-@import './assets/fonts/font.css';
-html, body { height: 100%}
-body { margin: 0;  font-family: 'Poppins', normal, 700; background-color:#f0f0f094 !important; }

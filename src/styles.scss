@@ -1,0 +1,424 @@
+@use '@angular/material' as mat;
+@use './assets/fonts/font';
+
+// ============================================
+// Nord Theme CSS Custom Properties
+// ============================================
+:root {
+  // Nord Polar Night (Dark)
+  --nord0: #2E3440;
+  --nord1: #3B4252;
+  --nord2: #434C5E;
+  --nord3: #4C566A;
+
+  // Nord Snow Storm (Light)
+  --nord4: #D8DEE9;
+  --nord5: #E5E9F0;
+  --nord6: #ECEFF4;
+
+  // Nord Frost (Primary Blues)
+  --nord7: #8FBCBB;
+  --nord8: #88C0D0;
+  --nord9: #81A1C1;
+  --nord10: #5E81AC;
+
+  // Nord Aurora (Accents)
+  --nord11: #BF616A;
+  --nord12: #D08770;
+  --nord13: #EBCB8B;
+  --nord14: #A3BE8C;
+  --nord15: #B48EAD;
+
+  // Semantic Variables
+  --color-primary: var(--nord10);
+  --color-accent: var(--nord8);
+  --color-error: var(--nord11);
+  --color-success: var(--nord14);
+  --color-warning: var(--nord13);
+
+  --bg-primary: var(--nord6);
+  --bg-card: #FFFFFF;
+  --bg-hover: rgba(136, 192, 208, 0.1);
+
+  --text-primary: var(--nord0);
+  --text-secondary: var(--nord3);
+
+  --border-color: var(--nord4);
+  --border-radius: 8px;
+
+  --shadow-sm: 0 1px 3px rgba(46, 52, 64, 0.08);
+  --shadow-md: 0 4px 12px rgba(46, 52, 64, 0.1);
+  --shadow-lg: 0 8px 24px rgba(46, 52, 64, 0.12);
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+// ============================================
+// Angular Material Theme Setup
+// ============================================
+@include mat.core();
+
+// Nord-based Material Palettes
+$nord-primary-palette: (
+  50: #e8f0f5,
+  100: #c5dae6,
+  200: #9fc2d6,
+  300: #79aac5,
+  400: #5c98b9,
+  500: #5E81AC,
+  600: #4f7499,
+  700: #3f6385,
+  800: #305372,
+  900: #1a3a52,
+  A100: #a7c8e0,
+  A200: #7bb0d4,
+  A400: #4e98c8,
+  A700: #3d87b7,
+  contrast: (50: #2E3440,
+    100: #2E3440,
+    200: #2E3440,
+    300: #2E3440,
+    400: #ECEFF4,
+    500: #ECEFF4,
+    600: #ECEFF4,
+    700: #ECEFF4,
+    800: #ECEFF4,
+    900: #ECEFF4,
+  )
+);
+
+$nord-accent-palette: (
+  50: #e8f5f4,
+  100: #c6e6e3,
+  200: #a0d5d1,
+  300: #79c4be,
+  400: #5db8b0,
+  500: #88C0D0,
+  600: #7ab3c2,
+  700: #69a2b1,
+  800: #5892a0,
+  900: #3a7482,
+  A100: #b0e0e6,
+  A200: #7bcdd6,
+  A400: #45bac6,
+  A700: #2aacb9,
+  contrast: (50: #2E3440,
+    100: #2E3440,
+    200: #2E3440,
+    300: #2E3440,
+    400: #2E3440,
+    500: #2E3440,
+    600: #ECEFF4,
+    700: #ECEFF4,
+    800: #ECEFF4,
+    900: #ECEFF4,
+  )
+);
+
+$my-app-primary: mat.m2-define-palette($nord-primary-palette, 500, 100, 800);
+$my-app-accent: mat.m2-define-palette($nord-accent-palette, 500, 200, 800);
+$my-app-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$my-app-theme: mat.m2-define-light-theme((color: (primary: $my-app-primary,
+        accent: $my-app-accent,
+        warn: $my-app-warn,
+      ),
+      typography: mat.m2-define-typography-config($font-family: 'Poppins, Roboto, "Helvetica Neue", sans-serif',
+      ),
+      density: -1,
+    ));
+
+@include mat.all-component-themes($my-app-theme);
+
+// ============================================
+// Global Base Styles
+// ============================================
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Poppins', Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+// ============================================
+// Material Component Overrides
+// ============================================
+
+// Cards
+.mat-mdc-card {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: box-shadow var(--transition-normal);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.mat-mdc-card-header {
+  padding: 16px 16px 8px;
+}
+
+.mat-mdc-card-content {
+  padding: 0 16px 16px;
+}
+
+// Buttons
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--nord9);
+  }
+}
+
+.mat-mdc-fab {
+  box-shadow: var(--shadow-md);
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.mat-mdc-icon-button:hover {
+  background-color: var(--bg-hover);
+}
+
+// Tabs
+.mat-mdc-tab-group {
+  .mdc-tab-indicator__content--underline {
+    border-color: var(--color-primary);
+  }
+
+  .mdc-tab--active .mdc-tab__text-label {
+    color: var(--color-primary);
+  }
+
+  .mdc-tab__text-label {
+    color: var(--text-secondary);
+  }
+}
+
+// Form Fields
+.mat-mdc-form-field {
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--border-color);
+    }
+  }
+
+  &.mat-focused .mdc-notched-outline {
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--color-primary);
+    }
+  }
+}
+
+// Tables
+.mat-mdc-table {
+  background: var(--bg-card);
+
+  .mat-mdc-header-row {
+    background-color: var(--nord5);
+  }
+
+  .mat-mdc-row {
+    &:hover {
+      background-color: var(--bg-hover);
+    }
+
+    &:nth-child(even) {
+      background-color: rgba(236, 239, 244, 0.5);
+    }
+  }
+
+  .mat-mdc-header-cell {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .mat-mdc-cell {
+    color: var(--text-primary);
+  }
+}
+
+// Toolbar
+.mat-toolbar {
+  background-color: var(--nord5);
+  color: var(--text-primary);
+}
+
+// ============================================
+// Utility Classes
+// ============================================
+.container {
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+  height: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 1rem;
+}
+
+.gap-4 {
+  gap: 1.5rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-3 {
+  padding: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+// ============================================
+// Nord Color Utilities
+// ============================================
+.nord-bg-polar {
+  background-color: var(--nord0);
+  color: var(--nord4);
+}
+
+.nord-bg-snow {
+  background-color: var(--nord6);
+  color: var(--nord0);
+}
+
+.nord-text-frost {
+  color: var(--color-primary);
+}
+
+.nord-text-aurora {
+  color: var(--color-error);
+}
+
+// ============================================
+// Global Transitions & Animations
+// ============================================
+a,
+button,
+input,
+textarea {
+  transition: all var(--transition-fast);
+}
+
+// Focus States for Accessibility
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+// Fade In Animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// ============================================
+// Scrollbar Styling (Optional)
+// ============================================
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nord6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nord4);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--nord3);
+  }
+}

@@ -1,0 +1,52 @@
+<div class="diagram-container">
+  @if (schema && nodes().length > 0) {
+  <vflow view="auto" [nodes]="nodes()" [edges]="edges()" class="vflow-canvas">
+
+    <!-- Custom node template for database tables -->
+    <ng-template let-ctx nodeHtml>
+      <div class="db-table" selectable [class.selected]="ctx.selected()" (dblclick)="onNodeDoubleClick(ctx.node)">
+        <div class="table-header">
+          <mat-icon class="header-icon">table_chart</mat-icon>
+          {{ ctx.node.data().tableName }}
+        </div>
+        <div class="table-columns">
+          @for (col of ctx.node.data().columns; track col.name) {
+          <div class="column" [class.pk]="col.isPK">
+            <!-- Target (Left) -->
+            @if (col.hasTargetHandle) {
+            <handle type="target" position="left" [id]="col.name + '_target'"
+              style="position: absolute; left: 0; top: 50%; width: 1px; height: 1px; opacity: 0;"></handle>
+            }
+
+            @if (col.isPK) {
+            <mat-icon class="pk-icon">vpn_key</mat-icon>
+            }
+            <span class="col-name">{{ col.name }}</span>
+            <span class="col-type">{{ col.type }}</span>
+
+            <!-- Source (Right) -->
+            @if (col.hasSourceHandle) {
+            <handle type="source" position="right" [id]="col.name + '_source'"
+              style="position: absolute; right: 0; top: 50%; width: 1px; height: 1px; opacity: 0;"></handle>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Edge Labels if needed -->
+    <!-- Default edges (type='default') will be rendered automatically by vflow -->
+
+  </vflow>
+  } @else if (!schema) {
+  <div class="loading">
+    <mat-icon class="spin-icon">sync</mat-icon>
+    Schema wird geladen...
+  </div>
+  } @else {
+  <div class="empty">
+    Keine Tabellen gefunden
+  </div>
+  }
+</div>

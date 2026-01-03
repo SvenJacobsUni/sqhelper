@@ -1,0 +1,55 @@
+<div class="home-container">
+  <img src="assets/logotransparent.png" alt="SQheLper Logo" class="logo" />
+
+  @if (!showUpload) {
+  <div class="option-cards">
+    <mat-card class="option-card" (click)="showUploadSection()">
+      <mat-card-content>
+        <mat-icon class="option-icon">upload_file</mat-icon>
+        <h3>Eigene Datenbank</h3>
+        <p>SQLite-Datei hochladen (.sql, .sqlite, .db)</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="option-card" [class.disabled]="isLoadingExample" (click)="loadExampleDb()">
+      <mat-card-content>
+        @if (isLoadingExample) {
+        <mat-spinner diameter="48" class="option-icon"></mat-spinner>
+        } @else {
+        <mat-icon class="option-icon">storage</mat-icon>
+        }
+        <h3>Beispieldatenbank</h3>
+        <p>
+          @if (isLoadingExample) {
+          Wird geladen...
+          } @else {
+          Sofort mit der Demo-DB starten
+          }
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="privacy-notice">
+    <mat-icon>security</mat-icon>
+    <p>
+      SQheLper nutzt <strong>sql.js</strong>, um SQLite direkt im Browser via WebAssembly auszufuehren.
+      Deine Daten verlassen niemals deinen Rechner.
+    </p>
+  </div>
+  }
+
+  @if (showUpload) {
+  <div class="upload-section">
+    <button mat-icon-button class="back-button" (click)="hideUploadSection()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <app-file-upload></app-file-upload>
+  </div>
+  }
+
+  <a mat-button href="https://github.com/SvenJacobsUni/sqhelper" target="_blank" class="github-link">
+    <mat-icon>code</mat-icon>
+    Open Source
+  </a>
+</div>

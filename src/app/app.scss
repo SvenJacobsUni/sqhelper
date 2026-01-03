@@ -1,0 +1,21 @@
+// Footer Styles
+.footer {
+  height: 40px; // Slightly taller for better touch
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.divider {
+  height: 20px;
+  opacity: 0.5;
+}

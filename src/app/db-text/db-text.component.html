@@ -1,0 +1,16 @@
+@for (table of alltables; track table.table) {
+<div class="schema-row">
+  <button mat-icon-button color="primary" matTooltip="Tabelle öffnen" (click)="openTable(table.table)">
+    <mat-icon>open_in_new</mat-icon>
+  </button>
+  <div class="table-def">
+    <strong>{{ table.table }}</strong>
+    <span class="parenthesis">(</span>
+    @for (attr of table.attri; track $index) {
+    <span class="attribute" [innerHTML]="attr"></span>
+    @if ($index < table.attri.length - 1) { <span class="comma">, </span> }
+      }
+      <span class="parenthesis">)</span>
+  </div>
+</div>
+}

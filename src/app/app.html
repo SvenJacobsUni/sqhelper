@@ -1,0 +1,13 @@
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<mat-toolbar class="footer">
+  <span class="footer-content">
+    <button mat-button (click)="openImpressum()">Impressum</button>
+    <mat-divider vertical="true" class="divider"></mat-divider>
+    <button mat-button (click)="openDatenschutz()">Datenschutz</button>
+    <mat-divider vertical="true" class="divider"></mat-divider>
+    <a mat-button href="mailto:sven.jacobs@uni-siegen.de">Feedback</a>
+  </span>
+</mat-toolbar>

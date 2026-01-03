@@ -1,0 +1,26 @@
+<div class="table-container">
+  <div class="table-search">
+    <mat-form-field appearance="outline">
+      <mat-label>Suche</mat-label>
+      <input matInput (keyup)="onSearchInput($event)" placeholder="Filtern..." />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="table-wrapper">
+    <table mat-table [dataSource]="tableDataSrc" matSort>
+      @for (col of tableCols; track col) {
+        <ng-container [matColumnDef]="col">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</th>
+          <td mat-cell *matCellDef="let profile">{{ profile[col] }}</td>
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="tableCols; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableCols"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+  </mat-paginator>
+</div>

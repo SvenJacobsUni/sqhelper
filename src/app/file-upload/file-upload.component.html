@@ -1,0 +1,36 @@
+<mat-card class="upload-card">
+  <mat-card-header>
+    <mat-card-title>Datenbank hochladen</mat-card-title>
+    <mat-card-subtitle>Unterstützte Formate: .sql, .sqlite, .db</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="content-upload">
+    <div class="upload-area" (click)="fileSelect.click()" (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [class.dragover]="isDragOver">
+      <mat-icon class="upload-icon">cloud_upload</mat-icon>
+      <p>Klicken zum Auswählen oder Datei hierher ziehen</p>
+      <button mat-raised-button color="primary">Datei Auswählen</button>
+    </div>
+
+    @if (name.length > 0) {
+    <div class="selected-file">
+      <mat-icon>description</mat-icon>
+      <span>{{ name }}</span>
+    </div>
+    }
+
+    <input type="file" accept=".sql,.sqlite,.db,.sqlite3" hidden #fileSelect name="largeFile"
+      (change)="onFileSelect($event)" />
+
+    @if (uploadPercent > 0) {
+    <div class="progress-section">
+      <mat-progress-spinner [color]="color" [mode]="mode" [value]="uploadPercent" diameter="40">
+      </mat-progress-spinner>
+    </div>
+    }
+  </mat-card-content>
+  <mat-card-actions class="actions-column">
+    <p class="info-text">
+      Maximale Größe: 10MB. Keine personenbezogenen Daten.
+    </p>
+  </mat-card-actions>
+</mat-card>

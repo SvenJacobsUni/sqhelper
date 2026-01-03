@@ -1,0 +1,36 @@
+.editor-container {
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 40px; // Footer height
+  box-sizing: border-box;
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 40px);
+  padding: 2rem;
+}
+
+.error-card {
+  max-width: 400px;
+  width: 100%;
+
+  .mat-mdc-card-header {
+    align-items: center;
+    gap: 12px;
+  }
+
+  .error-icon {
+    color: var(--color-warning);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
