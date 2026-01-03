@@ -98,19 +98,13 @@ export class SqliteService {
 
     if (fileName.endsWith('.sqlite') || fileName.endsWith('.db') || fileName.endsWith('.sqlite3')) {
       await this.loadSqliteFile(file);
-    } else if (fileName.endsWith('.sql')) {
-      await this.loadSqlTextFile(file);
-    } else {
-      this.uploadErrorSubject.next('Bitte waehlen Sie eine .sql, .sqlite oder .db Datei aus');
+    } 
+    else {
+      this.uploadErrorSubject.next('Bitte waehlen Sie eine .sqlite Datei aus');
     }
   }
 
   async loadSqliteFile(file: File): Promise<void> {
-    if (file.size > 10 * 1024 * 1024) {
-      this.uploadErrorSubject.next('Datei ist groesser als 10MB');
-      return;
-    }
-
     try {
       const arrayBuffer = await this.readFileAsArrayBuffer(file);
 
@@ -129,41 +123,6 @@ export class SqliteService {
     }
   }
 
-  async loadSqlTextFile(file: File): Promise<void> {
-    if (file.size > 10 * 1024 * 1024) {
-      this.uploadErrorSubject.next('Datei ist groesser als 10MB');
-      return;
-    }
-
-    try {
-      const content = await this.readFileAsText(file);
-      const sqliteContent = this.convertMySqlToSqlite(content);
-
-      if (!this.SQL) {
-        await this.waitForInit();
-      }
-      this.db = new this.SQL!.Database();
-
-      this.db.run(sqliteContent);
-
-      this.dbDetectedSubject.next(true);
-      this.getSchema();
-      this.uploadDoneSubject.next();
-    } catch (error) {
-      console.error('Failed to import SQL file:', error);
-      this.uploadErrorSubject.next((error as Error).message || 'Fehler beim Import');
-    }
-  }
-
-  private readFileAsText(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = () => reject(reader.error);
-      reader.readAsText(file);
-    });
-  }
-
   private readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -171,45 +130,6 @@ export class SqliteService {
       reader.onerror = () => reject(reader.error);
       reader.readAsArrayBuffer(file);
     });
-  }
-
-  private convertMySqlToSqlite(mysqlSql: string): string {
-    let sql = mysqlSql;
-
-    sql = sql.replace(/SET SQL_MODE.*?;/gi, '');
-    sql = sql.replace(/START TRANSACTION;/gi, '');
-    sql = sql.replace(/COMMIT;/gi, '');
-    sql = sql.replace(/SET time_zone.*?;/gi, '');
-    sql = sql.replace(/\/\*!.*?\*\//g, '');
-
-    sql = sql.replace(/ENGINE\s*=\s*\w+/gi, '');
-    sql = sql.replace(/DEFAULT\s+CHARSET\s*=\s*\w+/gi, '');
-    sql = sql.replace(/COLLATE\s+\w+/gi, '');
-    sql = sql.replace(/COLLATE\s*=\s*\w+/gi, '');
-    sql = sql.replace(/CHARACTER\s+SET\s+\w+/gi, '');
-
-    sql = sql.replace(/`/g, '"');
-    sql = sql.replace(/AUTO_INCREMENT/gi, 'AUTOINCREMENT');
-    sql = sql.replace(/enum\([^)]+\)/gi, 'TEXT');
-    sql = sql.replace(/'0000-00-00'/g, 'NULL');
-    sql = sql.replace(/\bunsigned\b/gi, '');
-
-    sql = sql.replace(/float\(\d+,\d+\)/gi, 'REAL');
-    sql = sql.replace(/double\(\d+,\d+\)/gi, 'REAL');
-
-    sql = sql.replace(/\bint\(\d+\)/gi, 'INTEGER');
-    sql = sql.replace(/\btinyint\(\d+\)/gi, 'INTEGER');
-    sql = sql.replace(/\bsmallint\(\d+\)/gi, 'INTEGER');
-    sql = sql.replace(/\bmediumint\(\d+\)/gi, 'INTEGER');
-    sql = sql.replace(/\bbigint\(\d+\)/gi, 'INTEGER');
-
-    sql = sql.replace(/varchar\(\d+\)/gi, 'TEXT');
-
-    sql = sql.replace(/ALTER TABLE\s+"?\w+"?\s+ADD PRIMARY KEY\s*\([^)]+\);?/gi, '');
-    sql = sql.replace(/ALTER TABLE\s+"?\w+"?\s+ADD KEY\s+\w+\s*\([^)]+\);?/gi, '');
-    sql = sql.replace(/ALTER TABLE\s+"?\w+"?\s+ADD CONSTRAINT\s+[^;]+;/gi, '');
-
-    return sql;
   }
 
   executeQuery(sql: string): void {

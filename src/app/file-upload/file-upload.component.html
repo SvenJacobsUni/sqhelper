@@ -1,7 +1,7 @@
 <mat-card class="upload-card">
   <mat-card-header>
     <mat-card-title>Datenbank hochladen</mat-card-title>
-    <mat-card-subtitle>Unterstützte Formate: .sql, .sqlite, .db</mat-card-subtitle>
+    <mat-card-subtitle>Unterstützte Formate: .sqlite</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="content-upload">
     <div class="upload-area" (click)="fileSelect.click()" (dragover)="onDragOver($event)"
@@ -28,9 +28,4 @@
     </div>
     }
   </mat-card-content>
-  <mat-card-actions class="actions-column">
-    <p class="info-text">
-      Maximale Größe: 10MB. Keine personenbezogenen Daten.
-    </p>
-  </mat-card-actions>
 </mat-card>
