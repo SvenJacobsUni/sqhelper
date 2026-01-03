@@ -276,7 +276,7 @@ export class SqliteService {
               table_name: tableName,
               column_name: colRow[1] as string,
               column_type: colRow[2] as string,
-              column_key: colRow[5] === 1 ? 'PRI' : ''
+              column_key: (colRow[5] as number) > 0 ? 'PRI' : ''
             });
           }
         }
